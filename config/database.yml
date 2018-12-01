@@ -19,7 +19,7 @@ development:
   database: poehub_development
   pool:     5
   username: poehub
-  password:
+  password: poehubpas
   template: template0
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -47,7 +47,7 @@ test:
   database: poehub_test
   pool:     5
   username: poehub
-  password:
+  password: poehubpas
   template: template0
 
 production:
@@ -57,5 +57,5 @@ production:
   database: poehub_production
   pool:     5
   username: poehub
-  password:
+  password: poehubpas
   template: template0

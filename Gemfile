@@ -28,7 +28,7 @@ gem 'devise'
 gem 'high_voltage'
 gem 'jquery-rails'
 gem 'pg', '~> 0.18'
-gem 'therubyracer', :platform=>:ruby
+gem 'mini_racer'
 group :development do
   gem 'better_errors'
   gem 'hub', :require=>nil
