@@ -1,7 +1,10 @@
 class User < ApplicationRecord
   has_many :poems
   has_many :lines
-  has_many :contributed_poem, through: 'lines', class_name: 'Poem', source: ''
+  has_many :likes
+  has_many :favourite_lines, through: :likes, source: :line
+  has_many :subscribes
+  has_many :subscribed_poems, through: :subscribes, source: :poem
 
   rolify
   enum role: [:user, :vip, :admin]
