@@ -29,6 +29,7 @@ gem 'high_voltage'
 gem 'jquery-rails'
 gem 'pg', '~> 0.18'
 gem 'mini_racer'
+gem 'rolify'
 group :development do
   gem 'better_errors'
   gem 'hub', :require=>nil

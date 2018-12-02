@@ -7,3 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 user = CreateAdminService.new.call
 puts 'CREATED ADMIN USER: ' << user.email
+
+#roles
+roles = Role.create([{name: 'admin', title: "Administrator"},
+                    {name: 'writer', title: "Pisarz"},
+                    {name: 'reader', title: "Czyterlnik"}])
+User.first.add_role :admin
