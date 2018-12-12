@@ -1,0 +1,6 @@
+<% poems.each do |poem| %>
+    <%= render(
+            partial: 'poems/poem',
+            locals: {poem: poem}
+        ) %>
+<% end %>

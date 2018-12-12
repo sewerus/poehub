@@ -1,2 +1,20 @@
-<%# add navigation links to this file %>
-<li class='nav-item'><%= link_to 'About', page_path('about'), class: 'nav-link' %></li>
+<%= link_to "Strona główna", root_path %>
+
+<% if current_user.has_role? :writer %>
+  <%= link_to "Moja twórczość", "#", id: 'writer-menu-link' %>
+  <div id="writer-menu">
+    <%= link_to "Napisz wiersz", new_poem_path %>
+    <%= link_to "Napisane wierse", written_path %>
+  </div>
+<% end %>
+
+<% if current_user.has_role? :reader %>
+  <%= link_to "Czytelnik", "#", id: 'reader-menu-link' %>
+  <div id="reader-menu">
+    <%= link_to "Czytaj wiersze", poems_path %>
+    <%= link_to "Obserwowane wiersze", subscribed_path %>
+    <%= link_to "Polubione wiersze", favourites_path %>
+  </div>
+<% end %>
+
+<%= link_to "Moje konto", "#" %>

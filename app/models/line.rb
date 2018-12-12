@@ -6,4 +6,13 @@ class Line < ApplicationRecord
   def next_lines
     Line.where(previous_line: self.id)
   end
+
+  #return all previous lines
+  def poem
+    if !self.previous_line.nil?
+      self.previous_line.poem + [self]
+    else
+      [self]
+    end
+  end
 end

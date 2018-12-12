@@ -1,0 +1,15 @@
+<div class="poem">
+  <h4><%= poem.title %><br></h4>
+  Utworzony: <%= poem.created_at %><br>
+  Okres skamienienia: <%= poem.stone_date %><br>
+  <hr>
+  <div class="versions">
+    <% poem.all_versions.each do |version| %>
+        <div class="version">
+          <% version.each do |line| %>
+              <%= line.content %><br>
+          <% end %>
+        </div>
+    <% end %>
+  </div>
+</div>

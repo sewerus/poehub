@@ -2,14 +2,30 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Poehub" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Poehub" %>">
+    <title><%= content_for?(:title) ? yield(:title) : "PoeHub" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "PoeHub" %>">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => 'reload' %>
     <%= csrf_meta_tags %>
   </head>
   <body>
+    <div id="tag-list">
+      <script language="javascript">
+        if (document.body.offsetWidth >= 768) {
+          $('#tag-list').append('<%=j render "layouts/tag_list" %>');
+        } else {
+          $('#tag-list').hide();
+        }
+      </script>
+    </div>
     <header>
+      <script language="javascript">
+        if (document.body.offsetWidth <= 768) {
+          $('#menujs').append('<%=j render "layouts/navigation_xs" %>');
+        } else {
+          $('#menujs').append('<%=j render "layouts/navigation" %>');
+        }
+      </script>
       <%= render 'layouts/navigation' %>
     </header>
     <main role="main">
