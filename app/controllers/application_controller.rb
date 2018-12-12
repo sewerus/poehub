@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :signed_only
+  #before_action :signed_only
 
   def signed_only
     unless user_signed_in?

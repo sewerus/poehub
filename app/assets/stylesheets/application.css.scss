@@ -16,11 +16,13 @@
 
 a {
   color: white;
+  transition-duration: 0.5s;
   &:hover {
     color: white;
     text-decoration: none;
     box-shadow: rgba(255, 255, 255, 0.5) 0 0 3px 2px;
     background-color: rgba(255, 255, 255, 0.5);
+    transition-duration: 0.5s;
   }
 }
 
@@ -39,9 +41,15 @@ body {
 }
 
 header {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
   #top-header {
     padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    a {
+      margin: 0 0 0 40px;
+    }
   }
   #menu {
     padding: 20px;
@@ -51,11 +59,43 @@ header {
     justify-content: space-around;
     a {
     }
+
+
+    .dropdown-menu {
+      display: none;
+      background-color: darken(darkgrey, 30%);
+      padding: 3px 10px 3px 10px;
+      transition-duration: 1s;
+      a {
+        display: block;
+      }
+    }
+
+    .dropdown:hover {
+      .dropdown-menu {
+        display: block;
+        transition-duration: 1s;
+      }
+    }
   }
 
-  #writer-menu, #reader-menu {
-    //display: none;
+  .logo {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 0 0 0 30px;
   }
 
+  .orange-bg {
+    background-color: orange;
+    color: black;
+    border-radius: 3px;
+  }
 
+  .authform {
+    background-color: black;//#rgba(255, 255, 255, 0.3);
+  }
+
+  #main-content {
+    margin: 0 auto;
+  }
 }

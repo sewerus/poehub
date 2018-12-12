@@ -1,0 +1,35 @@
+<div id="main-content" class="col-md-6">
+  <h3>
+    Nowe dzieło
+  </h3>
+  <hr>
+  <div class="row">
+    <%= form_for(@poem, :url => {:action => "create"}, :html => {:role => 'form'}) do |f| %>
+        <div class="form-field">
+          <div>
+            Tytuł
+          </div>
+          <div class="input-field">
+            <%= f.text_field :title, :autofocus => true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-field">
+          <div>
+            Okres skamienienia
+          </div>
+          <div class="input-field">
+            <%= f.date_select :stone_date, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-field">
+          <div>
+            Treść
+          </div>
+          <div class="input-field">
+            <%= text_area :lines, class: 'form-control' %>
+          </div>
+        </div>
+        <%= f.submit 'Utwórz' %>
+    <% end %>
+  </div>
+</div>

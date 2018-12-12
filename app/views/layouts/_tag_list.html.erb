@@ -1,15 +1,5 @@
-<span>
-  <%= link_to "Romantyczne", "#" %>
-</span>
-<span>
-  <%= link_to "O codzienności", "#" %>
-</span>
-<span>
-  <%= link_to "Ból istnienia", "#" %>
-</span>
-<span>
-  <%= link_to "Wojenne", "#" %>
-</span>
-<span>
-  <%= link_to "Religijne", "#" %>
-</span>
+<% Tag.all.each do |tag| %>
+  <span>
+    <%= link_to tag.title, tag_path(tag) %>
+  </span>
+<% end %>

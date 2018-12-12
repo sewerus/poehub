@@ -1,20 +1,30 @@
 <%= link_to "Strona główna", root_path %>
+<%= link_to "Kategorie", root_path %>
+<%= link_to "Ranking wierszy", root_path %>
+<%= link_to "Ranking użytkowników", root_path %>
 
+<% if user_signed_in? %>
 <% if current_user.has_role? :writer %>
-  <%= link_to "Moja twórczość", "#", id: 'writer-menu-link' %>
-  <div id="writer-menu">
-    <%= link_to "Napisz wiersz", new_poem_path %>
-    <%= link_to "Napisane wierse", written_path %>
-  </div>
+        <div id="writer-menu-link" class="dropdown">
+          <%= link_to "Moja twórczość", "#", class: 'dropdown-toggle' %>
+          <div id="writer-menu" class="dropdown-menu">
+            <%= link_to "Napisz wiersz", new_poem_path %>
+            <%= link_to "Napisane wierse", written_path %>
+          </div>
+        </div>
+
 <% end %>
 
 <% if current_user.has_role? :reader %>
-  <%= link_to "Czytelnik", "#", id: 'reader-menu-link' %>
-  <div id="reader-menu">
-    <%= link_to "Czytaj wiersze", poems_path %>
-    <%= link_to "Obserwowane wiersze", subscribed_path %>
-    <%= link_to "Polubione wiersze", favourites_path %>
-  </div>
+        <div id="reader-menu-link" class="dropdown">
+          <%= link_to "Czytelnik", "#", class: 'dropdown-toggle' %>
+          <div id="reader-menu" class="dropdown-menu">
+            <%= link_to "Czytaj wiersze", poems_path %>
+            <%= link_to "Obserwowane wiersze", subscribed_path %>
+            <%= link_to "Polubione wiersze", favourites_path %>
+          </div>
+        </div>
 <% end %>
 
 <%= link_to "Moje konto", "#" %>
+<% end %>

@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   get '/favourites' => 'poems#favourites', as: :favourites
   get '/subscribed' => 'poems#subscribed', as: :subscribed
   get '/written' => 'poems#written', as: :written
+  resources :tags
 end

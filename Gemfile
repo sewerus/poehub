@@ -28,10 +28,14 @@ gem 'devise'
 gem 'high_voltage'
 gem 'jquery-rails'
 gem 'pg', '~> 0.18'
-gem 'mini_racer'
+#gem 'mini_racer'
 gem 'rolify'
+gem 'rdoc'
 group :development do
   gem 'better_errors'
   gem 'hub', :require=>nil
   gem 'rails_layout'
+end
+group :development do
+  gem "capistrano", "~> 3.11", require: false
 end
