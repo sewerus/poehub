@@ -31,11 +31,10 @@ gem 'pg', '~> 0.18'
 #gem 'mini_racer'
 gem 'rolify'
 gem 'rdoc'
+gem 'oj'
+gem 'fast_jsonapi'
 group :development do
   gem 'better_errors'
   gem 'hub', :require=>nil
   gem 'rails_layout'
-end
-group :development do
-  gem "capistrano", "~> 3.11", require: false
 end
