@@ -10,17 +10,9 @@ Rails.application.routes.draw do
 
   #api
   namespace :api do
-      # resources :users, only: [:index, :create, :show, :update, :destroy] do
-      #   namespace :links do
-      #     resources :followers, only: [] do
-      #       add_relationship_links.call
-      #     end
-      #     resources :following, only: [] do
-      #       add_relationship_links.call
-      #     end
-      #   end
-      # end
-      resources :poems, only: [:index, :create, :show, :update, :destroy]
       resources :sessions, only: [:create]
+      resources :poems, only: [:index, :create, :show, :update, :destroy]
+      resources :tags, only: [:index, :create, :show, :update, :destroy]
+      resources :users, only: [:index, :show]
   end
 end

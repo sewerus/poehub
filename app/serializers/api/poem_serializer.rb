@@ -1,5 +1,4 @@
-class PoemSerializer
+class Api::PoemSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :title, :stone_date, :user_id
-  #has_many :lines
+  attributes :title, :stone_date, :user, :tags, :all_versions
 end
