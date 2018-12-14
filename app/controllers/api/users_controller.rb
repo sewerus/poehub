@@ -8,6 +8,6 @@ class Api::UsersController < Api::ApiController
   def show
     user = User.find(params[:id])
     poems = user.poems
-    render json: Api::UserSerializer.new(user).serialized_json + PoemSerializer.new(poems).serialized_json
+    render json: Api::UserSerializer.new(user).serialized_json + Api::PoemSerializer.new(poems).serialized_json
   end
 end
