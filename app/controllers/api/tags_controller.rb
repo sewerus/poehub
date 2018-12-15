@@ -8,6 +8,6 @@ class Api::TagsController < Api::ApiController
   def show
     tag = Tag.find(params[:id])
     poems = tag.poems
-    render json: Api::TagSerializer.new(tag).serialized_json + Api::PoemSerializer.new(poems).serialized_json
+    render json: Api::TagSerializer.new(tag).serialized_json
   end
 end

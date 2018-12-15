@@ -1,8 +1,8 @@
 class Api::PoemsController < Api::ApiController
 
   def index
-    poems = User.all
-    render json: Api::UserSerializer.new(poems).serialized_json
+    poems = Poem.all
+    render json: Api::PoemSerializer.new(poems).serialized_json
   end
 
   def show

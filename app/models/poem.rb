@@ -10,14 +10,24 @@ class Poem < ApplicationRecord
 
   def find_versions(line, versions)
     if line.next_lines.empty?
-      puts line.id
-      [line.poem]
+      [{poem: line.poem.map{|single_line| single_line.slice(:id, :content, :created_at).merge(user: single_line.user.slice(:id, :name))}, likes: line.likes.count}]
     else
-      puts "next"
       line.next_lines.each do |next_line|
         versions += find_versions(next_line, versions)
       end
       versions
     end
+  end
+
+  def first_version
+    last_line = self.first_line
+    while !last_line.next_lines.empty?
+      last_line = last_line.next_lines.first
+    end
+    {poem: last_line.poem.map{|single_line| single_line.slice(:id, :content, :created_at).merge(user: single_line.user.slice(:id, :name))}, likes: last_line.likes.count}
+  end
+
+  def best_version
+    self.all_versions.max_by{|poem| poem[:likes] }
   end
 end
