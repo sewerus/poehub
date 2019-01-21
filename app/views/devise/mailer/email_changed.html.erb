@@ -1,0 +1,7 @@
+<p>Witaj <%= @email %>!</p>
+
+<% if @resource.try(:unconfirmed_email?) %>
+  <p>Piszemy do Ciebie, ponieważ Twój email zmienia się na <%= @resource.unconfirmed_email %>.</p>
+<% else %>
+  <p>Piszemy do Ciebie, ponieważ Twój email zmienił się na <%= @resource.email %>.</p>
+<% end %>

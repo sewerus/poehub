@@ -91,11 +91,13 @@ header {
     border-radius: 3px;
   }
 
-  .authform {
-    background-color: black;//#rgba(255, 255, 255, 0.3);
+  .green-bg {
+    background-color: limegreen;
+    color: black;
+    border-radius: 3px;
   }
+}
 
-  #main-content {
-    margin: 0 auto;
-  }
+#main-content {
+  margin: 0 auto;
 }
