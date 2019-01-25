@@ -4,6 +4,8 @@ class Poem < ApplicationRecord
   has_many :subscribes
   has_and_belongs_to_many :tags, join_table: 'poems_tags'
 
+  scope :most_observed, -> {where id: Subscribe.group("poem_id").order("count_user_id desc").count("user_id").keys[0..9]}
+
   def all_versions
     find_versions(self.first_line, [])
   end

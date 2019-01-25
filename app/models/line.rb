@@ -3,6 +3,8 @@ class Line < ApplicationRecord
   belongs_to :previous_line, class_name: 'Line', foreign_key: 'previous_line_id', primary_key: 'id', optional: true
   has_many :likes
 
+  scope :most_liked, -> {where id: Like.group("line_id").order("count_user_id desc").count("user_id").keys[0..9]}
+
   def next_lines
     Line.where(previous_line: self.id)
   end
