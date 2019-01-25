@@ -1,27 +1,20 @@
-Poehub
+Poehub Project
 ================
 
-This application was generated with the [rails_apps_composer](https://github.com/RailsApps/rails_apps_composer) gem
-provided by the [RailsApps Project](http://railsapps.github.io/).
+This is the Ruby on Rails application that allows users to writers poem in groups. Everyone can make their own end of somebody's else drama. Thanks to it they can publish whole tree of different versions of their group work.
 
-Rails Composer is supported by developers who purchase our RailsApps tutorials.
+Just make some lines to become part of art!
 
-Problems? Issues?
------------
+Users can register and then login. When they have their profiles, they have history of written poems, subscribed ones and liked versions. Without login they can only read somebody's else poems.
 
-Need help? Ask on Stack Overflow with the tag 'railsapps.'
-
-Your application contains diagnostics in the README file. Please provide a copy of the README file when reporting any issues.
-
-If the application doesn't work as expected, please [report an issue](https://github.com/RailsApps/rails_apps_composer/issues)
-and include the diagnostics.
+Every poems have stone dates - deadlines to be rising by other people. After this time there is chosen the version with most of likes.
 
 Ruby on Rails
 -------------
 
 This application requires:
 
-- Ruby 2.3.0
+- Ruby 2.3.1
 - Rails 5.1.4
 
 Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
