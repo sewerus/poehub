@@ -9,49 +9,53 @@
     <span class="glyphicon glyphicon-time" aria-hidden="true"></span> Utworzony: <%= poem.created_at.strftime '%d.%m.%Y %H:%M' %><br>
     <span class="<% if poem.stone_date > Time.now %>green-text<% end %>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Okres skamienienia: <%= poem.stone_date.strftime '%d.%m.%Y %H:%M' %></span><br>
 
-    <% if current_user.nil? %>
-        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Obserwujących: <span id="subscribe_<%= poem.id %>"><%= poem.subscribes.count %></span>
+    <% if current_user.nil? or !current_user.has_role? :reader %>
+        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Obserwujących: <%= poem.subscribes.count %>
     <% else %>
-        <%= link_to subscribe_poem_path(poem), onclick: "toggle_value('subscribe_#{ poem.id }');" do %>
-            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Obserwujących: <span id="subscribe_<%= poem.id %>"><%= poem.subscribes.count %></span>
+        <%= link_to subscribe_poem_path(poem), remote: true, onclick: "toggle_value('subscribe_#{ poem.id }');" do %>
+            <span <% if poem.is_subscribed?(current_user) %>class="orange-text"<% end %>><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Obserwujących: <span id="subscribe_<%= poem.id %>"><%= poem.subscribes.count %></span></span>
         <% end %>
     <% end %>
   </p>
   <hr>
 
     <div class="versions">
-      <% poem.all_versions.each do |version| %>
-          <div class="version">
-            <p>
-              <% version[:poem].each do |line| %>
+        <% all_versions = poem.all_versions %>
+        <% max_likes = poem.max_likes %>
+        <% all_versions.each do |version| %>
+            <div class="version<% if version[:likes] == max_likes and max_likes > 0 %> winner<% end %>">
+              <p>
+                <% version[:poem].each do |line| %>
                 <span title="<%= line[:user][:name] %>">
-                <% if current_user.nil? %>
+                <% if current_user.nil? or !current_user.has_role? :writer or poem.stone_date < Time.now %>
                   <%= line[:content] %>
                 <% else %>
                   <%= link_to line[:content], write_another_version_path(line[:id]) %>
                 <% end %>
                 </span><br>
-              <% end %>
-            </p>
-            <p class="grey-text">
-              <% if current_user.nil? %>
-                  <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Liczba polubień: <span id="like_<%= version[:id] %>"><%= version[:likes] %></span>
-              <% else %>
-                  <%= link_to like_version_path(version[:poem].last[:id]), onclick: "toggle_value(like_#{version[:id]});" do %>
-                      <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Liczba polubień: <span id="like_<%= version[:id] %>"><%= version[:likes] %></span>
-                  <% end %>
-              <% end %>
-            </p>
-          </div>
-      <% end %>
+                <% end %>
+              </p>
+              <p class="grey-text">
+                <% if current_user.nil? or !current_user.has_role? :reader %>
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Liczba polubień: <%= version[:likes] %>
+                <% else %>
+                    <%= link_to like_version_path(version[:poem].last[:id]), remote: true, onclick: "toggle_value('like_#{version[:poem].last[:id]}');" do %>
+                        <span <% if poem.line_is_liked?(version[:poem].last[:id], current_user) %>class="orange-text"<% end %>><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Liczba polubień: <span id="like_<%= version[:poem].last[:id] %>"><%= version[:likes] %></span></span>
+                    <% end %>
+                <% end %>
+              </p>
+            </div>
+        <% end %>
     </div>
 
-  <%= link_to edit_poem_path(poem) do %>
-      <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-      Edytuj wiersz
-  <% end %><br>
-  <%= link_to poem_path(poem), method: :delete, onclick: "if(confirm('Jesteś pewien?')) hide_element('poem_#{poem.id}')" do %>
-      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-      Usuń wiersz
+  <% if !current_user.nil? and poem.can_modify?(current_user) %>
+    <%= link_to edit_poem_path(poem) do %>
+        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+        Edytuj wiersz
+    <% end %><br>
+    <%= link_to poem_path(poem), method: :delete, onclick: "if(confirm('Jesteś pewien?')) hide_element('poem_#{poem.id}')" do %>
+        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        Usuń wiersz
+    <% end %>
   <% end %>
 </div>

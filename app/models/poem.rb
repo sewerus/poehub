@@ -4,10 +4,14 @@ class Poem < ApplicationRecord
   has_many :subscribes
   has_and_belongs_to_many :tags, join_table: 'poems_tags'
 
-  scope :most_observed, -> {where id: Subscribe.group("poem_id").order("count_user_id desc").count("user_id").keys[0..9]}
+  scope :most_observed, -> {where id: Subscribe.group("poem_id").order("count_user_id desc").count("user_id").keys.take(10)}
 
   def all_versions
-    find_versions(self.first_line, [])
+    if self.stone_date < Time.now
+      find_versions(self.first_line, []).uniq.sort_by{|version| version[:likes]}.reverse
+    else
+      find_versions(self.first_line, []).uniq
+    end
   end
 
   def find_versions(line, versions)
@@ -19,6 +23,10 @@ class Poem < ApplicationRecord
       end
       versions
     end
+  end
+
+  def max_likes
+    find_versions(self.first_line, []).map{|version| version[:likes]}.max
   end
 
   def first_version
@@ -79,7 +87,7 @@ class Poem < ApplicationRecord
   end
 
   def can_modify?(user)
-    user.has_role? :admin or self.user.id = user.id
+    user.has_role? :admin or self.user.id == user.id
   end
 
   def toggle_subscribe(user)
@@ -87,6 +95,22 @@ class Poem < ApplicationRecord
       user.subscribed_poems.delete(self)
     else
       user.subscribed_poems << self
+    end
+  end
+
+  def is_subscribed?(user)
+    if Subscribe.where(poem_id: self.id).where(user_id: user.id).count > 0
+      true
+    else
+      false
+    end
+  end
+
+  def line_is_liked?(line_id, user)
+    if Like.where(line_id: line_id).where(user_id: user.id).count > 0
+      true
+    else
+      false
     end
   end
 end

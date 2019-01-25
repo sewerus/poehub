@@ -9,7 +9,7 @@ class PoemsController < ApplicationController
   end
 
   def favourites
-    @poems = current_user.favourite_lines.map{|line| line.poem_version}
+    @poems = current_user.favourite_lines.map { |line| line.poem_version }
   end
 
   def subscribed
@@ -36,7 +36,7 @@ class PoemsController < ApplicationController
     if @poem.save_if_has_lines(params.require(:content).permit!.to_hash)
       redirect_to poem_path(@poem), notice: 'Właśnie dodałeś nowy wiersz!'
     else
-      redirect_to written_path, notice: 'Nie udało się utworzyć nowego wiersza.'
+      redirect_to written_path, alert: 'Nie udało się utworzyć nowego wiersza.'
     end
   end
 
@@ -44,7 +44,7 @@ class PoemsController < ApplicationController
     if @poem.update_attributes(poem_params)
       redirect_to poem_path(@poem), notice: 'Wiersz został zaktualizowany'
     else
-      redirect_to poem_path(@poem), notice: 'Nie udało się zaktualizować wiersza.'
+      redirect_to poem_path(@poem), alert: 'Nie udało się zaktualizować wiersza.'
     end
   end
 
@@ -58,21 +58,23 @@ class PoemsController < ApplicationController
 
   def create_another_version
     @poem = Poem.find(params[:poem_id])
-    if @poem.add_new_lines(params.require(:content).permit!.to_hash)
-      redirect_to poem_path(@poem), notice: 'Właśnie dodałeś nową wersję wiersza!'
+    if @poem.stone_date < Time.now
+      if @poem.add_new_lines(params.require(:content).permit!.to_hash)
+        redirect_to poem_path(@poem), notice: 'Właśnie dodałeś nową wersję wiersza!'
+      else
+        redirect_to written_path, alert: 'Nie udało się utworzyć nowego wiersza.'
+      end
     else
-      redirect_to written_path, notice: 'Nie udało się utworzyć nowego wiersza.'
+      redirect_to written_path, alert: 'Minął już okres skamienienia dla tego wiersza!.'
     end
   end
 
   def toggle_subscribe
     @poem.toggle_subscribe(current_user)
-    redirect_to poems_path
   end
 
   def toggle_like
     Line.find(params[:id]).toggle_like(current_user)
-    redirect_to poems_path
   end
 
   def best_poems

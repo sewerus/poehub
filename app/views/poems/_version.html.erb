@@ -12,7 +12,7 @@
         <p>
           <% favourite_poem[:poem].each do |line| %>
               <span title="<%= line[:user][:name] %>">
-                <% if current_user.nil? %>
+                <% if current_user.nil? or !current_user.has_role? :writer %>
                   <%= line[:content] %>
                 <% else %>
                   <%= link_to line[:content], write_another_version_path(line[:id]) %>
@@ -22,7 +22,7 @@
         </p>
 
         <p class="grey-text">
-          <% if current_user.nil? %>
+          <% if current_user.nil? or !current_user.has_role? :reader %>
               <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Liczba polubień: <span id="like_<%= favourite_poem[:poem].last[:id] %>"><%= favourite_poem[:likes] %></span>
           <% else %>
               <%= link_to like_version_path(favourite_poem[:poem].last[:id]), onclick: "toggle_value(like_#{favourite_poem[:poem].last[:id]});" do %>

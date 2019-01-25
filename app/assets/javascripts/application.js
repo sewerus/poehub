@@ -30,6 +30,15 @@ function hide_element(id) {
 
 //toggle value for subscribe and like
 function toggle_value(id) {
-    var obj = document.getElementById(id);
-    obj.html('sss');
+    var obj = $('span#' + id).first();
+    var new_value = parseInt(obj.text());
+    obj.empty();
+    if(obj.parent().hasClass('orange-text')) {
+        obj.parent().removeClass('orange-text');
+        new_value = new_value - 1;
+    } else {
+        obj.parent().addClass('orange-text');
+        new_value = new_value + 1;
+    }
+    obj.text(new_value);
 }
