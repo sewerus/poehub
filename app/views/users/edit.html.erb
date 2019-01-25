@@ -1,0 +1,28 @@
+<h1>Użytkownik: <%= @user.name %></h1>
+<hr>
+Email: <%= @user.email %><br>
+Data utworzenia konta: <%= @user.created_at %>
+<hr>
+<div class="input-form">
+  <%= form_for(@user, :url => {:action => "update"}, :html => {:role => 'form'}) do |f| %>
+      <div class="form-group">
+        <div>
+          Rola
+        </div>
+        <div class="input-field">
+          <table>
+            <% Role.all.each do |role| %>
+                <tr>
+                  <td>
+                    <%= check_box_tag "user[role_ids][]", role.id, @user.has_role?(role.title) %><%= role.name %>
+                  </td>
+                </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+      <%= f.submit 'Wprowadź zmiany' %>
+  <% end %>
+</div>
+<hr>
+<%= link_to 'Usunięcie użytkownika', user_path(@user), method: :delete, onclick: "if(confirm('Jesteś pewien?'))" %>

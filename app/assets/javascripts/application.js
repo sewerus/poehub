@@ -16,3 +16,20 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+
+//hiding elements
+function hide_element(id) {
+    var obj = document.getElementById(id);
+    obj.style.opacity = '0';
+    obj.style['max-height'] = '0';
+    window.setTimeout(
+        function removethis() {
+            obj.remove();
+        }, 1000);
+}
+
+//toggle value for subscribe and like
+function toggle_value(id) {
+    var obj = document.getElementById(id);
+    obj.html('sss');
+}

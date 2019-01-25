@@ -4,11 +4,13 @@
   border-radius: 10px;
 }
 
-.versions{
+.versions {
   display: flex;
   flex-direction: row;
+  overflow-x: scroll;
   .version {
     width: auto;
+    min-width: 200px;
     margin: 0 50px 0 50px;
   }
 }
@@ -21,4 +23,13 @@
 
 .form-control {
   width: 100%;
+}
+
+.poem-title {
+  font-style: italic;
+  font-size: 30px;
+}
+
+textarea {
+  min-height: 300px;
 }

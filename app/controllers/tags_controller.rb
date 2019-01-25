@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+  before_action :admin_only, only: [:new, :edit, :create, :update, :destroy]
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -55,6 +56,6 @@ class TagsController < ApplicationController
     end
 
     def tag_params
-      params.fetch(:tag, {})
+      params.require(:tag).permit(:title, :description)
     end
 end

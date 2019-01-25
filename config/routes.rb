@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   get '/favourites' => 'poems#favourites', as: :favourites
   get '/subscribed' => 'poems#subscribed', as: :subscribed
   get '/written' => 'poems#written', as: :written
+  get '/line/:id/write_more' => 'poems#write_another_version', as: :write_another_version
+  post '/poems/:poem_id/create_another_version' => 'poems#create_another_version', as: :create_another_version
+  get '/poems/:id/subscribe' => 'poems#toggle_subscribe', as: :subscribe_poem
+  get '/version/:id/like' => 'poems#toggle_like', as: :like_version
+  get '/poems/best' => 'poems#best_poems', as: :best_poems_path
   resources :tags
 
   #api

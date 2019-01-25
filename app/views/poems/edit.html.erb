@@ -1,9 +1,9 @@
 <div class="input-form">
-  <h1>Nowe dzieło</h1>
+  <h4>Edytujesz parametry wiersza: <span class="poem-title"><%= @poem.title %></span></h4>
 </div>
 
 <div class="input-form">
-  <%= form_for(@poem, :url => {:action => "create"}, :html => {:role => 'form'}) do |f| %>
+  <%= form_for(@poem, :url => {:action => "update"}, :html => {:role => 'form'}) do |f| %>
       <div class="form-group">
 
         <%= f.label 'Tytuł' %>
@@ -28,23 +28,13 @@
             <% Tag.all.each do |tag| %>
                 <tr>
                   <td>
-                    <%= check_box_tag "poem[tag_ids][]", tag.id %><%= tag.title %>
+                    <%= check_box_tag "poem[tag_ids][]", tag.id, @poem.tags.include?(tag) %><%= tag.title %>
                   </td>
                 </tr>
             <% end %>
           </table>
         </div>
       </div>
-      <div class="form-group">
-        <div>
-          Treść
-        </div>
-        <div class="input-field">
-          <%= fields_for :content do |w| %>
-            <%= w.text_area :lines, class: 'form-control' %>
-          <% end %>
-        </div>
-      </div>
-      <%= f.submit 'Utwórz' %>
+      <%= f.submit 'Wprowadź zmiany' %>
   <% end %>
 </div>

@@ -30,4 +30,61 @@ class Poem < ApplicationRecord
   def best_version
     self.all_versions.max_by{|poem| poem[:likes] }
   end
+
+  def save_if_has_lines(lines)
+    if lines.empty?
+      false
+    else
+      if self.save
+        self.add_new_lines(lines)
+      else
+        false
+      end
+    end
+  end
+
+  def add_new_line(content, previous_line_id)
+    new_line = Line.new
+    new_line.content = content
+    new_line.user = self.user
+    new_line.previous_line_id = previous_line_id
+    new_line.save!
+    new_line.id
+  end
+
+  def add_new_lines(new_lines_hash)
+    lines_content = new_lines_hash["lines"].split("\r\n")
+
+    #for not first version but another ones
+    first_line = new_lines_hash["first_line_id"]
+
+    unless lines_content.empty?
+      #first line
+      previous_line_id = self.add_new_line(lines_content.shift, first_line)
+
+      #for only first version but not another ones
+      if first_line.nil?
+        self.first_line_id = previous_line_id
+        self.save!
+      end
+
+      #another lines
+      lines_content.each do |content|
+        previous_line_id = self.add_new_line(content, previous_line_id)
+      end
+    end
+    true
+  end
+
+  def can_modify?(user)
+    user.has_role? :admin or self.user.id = user.id
+  end
+
+  def toggle_subscribe(user)
+    if user.subscribed_poems.include?(self)
+      user.subscribed_poems.delete(self)
+    else
+      user.subscribed_poems << self
+    end
+  end
 end

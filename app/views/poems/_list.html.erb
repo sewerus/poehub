@@ -1,6 +1,11 @@
 <% poems.each do |poem| %>
-    <%= render(
-            partial: 'poems/poem',
-            locals: {poem: poem}
-        ) %>
+    <div class="light-bg tag">
+      <%= render(
+              partial: 'poems/poem',
+              locals: {poem: poem}
+          ) %>
+    </div>
+<% end %>
+<% if poems.empty? %>
+ brak wierszy do wyświetlenia
 <% end %>

@@ -1,41 +1,42 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
-  before_action :admin_only, :except => :show
+  before_action :admin_only, except: [:index, :show]
+  before_action :set_user, only: [:show, :edit, :update, :block_user]
 
   def index
     @users = User.all
   end
 
   def show
-    @user = User.find(params[:id])
-    unless current_user.admin?
-      unless @user == current_user
-        redirect_to root_path, :alert => "Access denied."
-      end
-    end
+  end
+
+  def edit
   end
 
   def update
-    @user = User.find(params[:id])
-    if @user.update_attributes(secure_params)
-      redirect_to users_path, :notice => "User updated."
+    if @user.update_attributes(roles_params)
+      redirect_to users_path, :notice => "Użytkownik zaktualizowany."
     else
-      redirect_to users_path, :alert => "Unable to update user."
+      redirect_to users_path, :alert => "Nie udało się zaktualizować użytkownika."
     end
   end
 
   def destroy
     user = User.find(params[:id])
     user.destroy
-    redirect_to users_path, :notice => "User deleted."
+    redirect_to users_path, :notice => "Użytkownik usunięty."
+  end
+
+  def block_user
+    @user.lock
   end
 
   private
 
-  def admin_only
-    unless current_user.has_role? :admin
-      redirect_to root_path, :alert => "Access denied."
-    end
+  def set_user
+    @user = User.find(params[:id])
   end
 
+  def roles_params
+    params.require(:user).permit(role_ids: [])
+  end
 end

@@ -1,2 +1,6 @@
-<h3>User</h3>
-<p>Email: <%= @user.email if @user.email %></p>
+<h1>Użytkownik: <%= @user.name %></h1>
+<hr>
+<%= render(
+        partial: 'poems/list',
+        locals: {poems: @user.poems}
+    ) %>

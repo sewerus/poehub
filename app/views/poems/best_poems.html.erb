@@ -1,0 +1,6 @@
+<h3>Top 10 najbardziej obserwowanych wierszy:</h3>
+
+<%= render(
+        partial: 'poems/list',
+        locals: {poems: Poem.order_by}
+    ) %>

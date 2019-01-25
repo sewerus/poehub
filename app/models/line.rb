@@ -15,4 +15,16 @@ class Line < ApplicationRecord
       [self]
     end
   end
+
+  def poem_version
+    {poem_id: Poem.where(first_line_id: self.poem.first.id).first.id, poem: self.poem.map{|single_line| single_line.slice(:id, :content, :created_at).merge(user: single_line.user.slice(:id, :name))}, likes: self.likes.count}
+  end
+
+  def toggle_like(user)
+    if user.favourite_lines.include?(self)
+      user.favourite_lines.delete(self)
+    else
+      user.favourite_lines << self
+    end
+  end
 end

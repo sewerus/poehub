@@ -14,6 +14,8 @@
  *= require_self
  */
 
+@import 'bootstrap/glyphicons';
+
 a {
   color: white;
   transition-duration: 0.5s;
@@ -100,4 +102,37 @@ header {
 
 #main-content {
   margin: 0 auto;
+}
+
+p.centering {
+  text-align: center;
+}
+
+.light-bg {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  padding: 20px;
+}
+
+.grey-text {
+  color: lightgrey;
+}
+
+.green-text {
+  color: greenyellow;
+}
+
+.orange-text {
+  color: orange;
+}
+
+.input-form {
+  max-width: 90%;
+  width: 90%;
+}
+
+.disappearing {
+  opacity: 1;
+  max-height: 10000px;
+  transition-duration: 1s;
 }

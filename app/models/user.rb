@@ -1,10 +1,12 @@
 class User < ApplicationRecord
-  has_many :poems
-  has_many :lines
-  has_many :likes
-  has_many :favourite_lines, through: :likes, source: :line
-  has_many :subscribes
-  has_many :subscribed_poems, through: :subscribes, source: :poem
+  has_many :poems, dependent: :destroy
+  has_many :lines, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :favourite_lines, through: :likes, source: :line, dependent: :destroy
+  has_many :subscribes, dependent: :destroy
+  has_many :subscribed_poems, through: :subscribes, source: :poem, dependent: :destroy
+
+  after_create :set_default_role
 
   rolify
 
@@ -12,4 +14,10 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable
+
+  private
+  def set_default_role
+    self.add_role(:writer)
+    self.add_role(:reader)
+  end
 end
