@@ -11,12 +11,12 @@
     </div>
     <div class="form-group">
       <%- if devise_mapping.recoverable? %>
-        <%= link_to "Forgot password?", new_password_path(resource_name), class: 'right' %>
+        <%= link_to "Zapomniałeś hasła?", new_password_path(resource_name), class: 'right' %>
       <% end -%>
-      <%= f.label :password %>
+      <%= f.label 'Hasło' %>
       <%= f.password_field :password, class: 'form-control' %>
     </div>
-      <%= f.submit 'Sign in', :class => 'button right' %>
+      <%= f.submit 'Zaloguj', :class => 'button right' %>
       <% if devise_mapping.rememberable? -%>
         <div class="checkbox" style="width:150px">
           <label>

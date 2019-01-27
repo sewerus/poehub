@@ -1,5 +1,5 @@
 <div class="authform">
-  <h3>Edycja <%= resource_name.to_s.humanize %></h3>
+  <h3>Edycja konta</h3>
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form'}) do |f| %>
     <%= devise_error_messages! %>
     <div class="form-group">
@@ -9,29 +9,33 @@
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
       <% end %>
     </div>
-    <fieldset>
-      <p>Leave these fields blank if you don't want to change your password.</p>
       <div class="form-group">
-        <%= f.label :password %>
+        <%= f.label 'Nazwa' %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+    <div>
+      <p>Zostaw te 2 pola puste, jeżeli nie chcesz zmieniać Twojego hasła.</p>
+      <div class="form-group">
+        <%= f.label 'Hasło' %>
         <%= f.password_field :password, :autocomplete => 'off', class: 'form-control' %>
       </div>
       <div class="form-group">
-        <%= f.label :password_confirmation %>
+        <%= f.label 'Potwierdzenie hasła' %>
         <%= f.password_field :password_confirmation, class: 'form-control' %>
       </div>
-    </fieldset>
-    <fieldset>
-      <p>You must enter your current password to make changes.</p>
+    </div>
+    <div>
+      <p>Musisz wpisać hasło jeżeli chcesz wprowadzić zmiany.</p>
       <div class="form-group">
-        <%= f.label :current_password %>
+        <%= f.label 'Obecne hasło do zatwierdzenia zmian' %>
         <%= f.password_field :current_password, class: 'form-control' %>
       </div>
-    </fieldset>
-    <%= f.submit 'Update', :class => 'button right' %>
+    </div>
+    <%= f.submit 'Wprowadź zmiany!', :class => 'button right' %>
   <% end %>
 </div>
 <div class="authform">
-<h3>Cancel Account</h3>
-<p>Unhappy? We'll be sad to see you go.</p>
-<%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button right' %>
+<h3>Usuwanie konta</h3>
+<p>Nieszczęśliwy? Only know you love him when you let him go.</p>
+<%= button_to "Wyprowadź się z tego serwisu", registration_path(resource_name), :data => { :confirm => "Na pewno chcesz odejść?" }, :method => :delete, :class => 'button right' %>
 </div>
