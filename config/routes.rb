@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: 'visitors#about'
-  devise_for :users
+  devise_for :users, :controllers => { registrations: 'registrations' }
   resources :users
   resources :poems
   get '/favourites' => 'poems#favourites', as: :favourites
