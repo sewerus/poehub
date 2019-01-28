@@ -58,7 +58,7 @@ class PoemsController < ApplicationController
 
   def create_another_version
     @poem = Poem.find(params[:poem_id])
-    if @poem.stone_date < Time.now
+    if @poem.stone_date > Time.now
       if @poem.add_new_lines(params.require(:content).permit!.to_hash)
         redirect_to poem_path(@poem), notice: 'Właśnie dodałeś nową wersję wiersza!'
       else
